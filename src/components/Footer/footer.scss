@@ -1,0 +1,35 @@
+.footer {
+  .section-4 {
+    background-color: #ffe8c5;
+    padding: 80px 23px;
+    &-subheadings {
+      font-size: 16px;
+      text-align: left;
+    }
+    &-subheadings-span {
+      padding-left: 40px;
+      text-align: left;
+    }
+
+    .company-logo {
+      float: left;
+    }
+    .section-4-btn {
+      width: 60px;
+      height: 60px;
+      background-color: #ffaf96;
+      border-radius: 50%;
+      padding: 12px;
+      margin-top: 80px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      float: right;
+    }
+  }
+  .bottom-section {
+    background-color: #ffd9b2;
+    padding: 20px 46px;
+    font-size: 14px;
+  }
+}

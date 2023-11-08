@@ -1,0 +1,21 @@
+.dashboard {
+  height: 78vh;
+  padding: 1% 4%;
+  overflow-y: scroll;
+  .dashboard-heading {
+    width: 100%;
+    padding: 1% 4%;
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+  }
+  .listText {
+    text-align: start;
+  }
+  .postCard {
+    height: 227px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

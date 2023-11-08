@@ -1,0 +1,55 @@
+.login-modal {
+  .modal-title {
+    padding: 40px 40px 0px 40px;
+  }
+  .register {
+    padding: 40px 40px 0px 40px;
+    font-weight: bold;
+  }
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+  .ant-modal-header {
+    border-radius: 20px 20px 0 0;
+    border: none;
+  }
+  .modal-form {
+    padding: 0px 40px;
+
+    .modal-login-input {
+      width: 390px;
+      border-radius: 5px;
+    }
+    .modal-login-btn {
+      width: 390px;
+      border-radius: 5px;
+      border: none;
+      background-color: #04c35c;
+      color: white;
+      font-weight: bold;
+    }
+  }
+  .ant-modal-footer {
+    border: none;
+  }
+  .login-modal-footer {
+    text-align: center;
+    padding: 18px 0px;
+    font-size: 16px;
+  }
+  .login-modal-footer > span {
+    padding-left: 5px;
+    color: #1890ff;
+    cursor: pointer;
+  }
+  .register-modal-footer {
+    color: #b4b4b4;
+    text-align: center;
+  }
+  .verify-modal-footer {
+    padding: 170px 0px;
+    text-align: center;
+    font-size: 16px;
+    color: #a39f9f;
+  }
+}
