@@ -18,9 +18,10 @@ const Login = React.lazy(() => import("./components/Login"));
 function App() {
   const [open, setOpen] = useState<any>(false);
   const [login, setLogin] = useState<any>(false);
+  const [openRegisterFrom, setOpenRegisterForm] = useState(false);
 
   useEffect(() => {
-    setLogin(checkIfLogin());
+    // setLogin(checkIfLogin());
   }, [open]);
   return (
     <div className="App">
@@ -35,8 +36,16 @@ function App() {
                   </Space>
                 }
               >
-                <Header setOpen={setOpen} />
-                <Login open={open} setOpen={setOpen} />
+                <Header
+                  setOpen={setOpen}
+                  setOpenRegisterForm={setOpenRegisterForm}
+                />
+                <Login
+                  open={open}
+                  setOpen={setOpen}
+                  openRegisterFrom={openRegisterFrom}
+                  setOpenRegisterForm={setOpenRegisterForm}
+                />
 
                 <Routes>
                   {!checkIfLogin() && (

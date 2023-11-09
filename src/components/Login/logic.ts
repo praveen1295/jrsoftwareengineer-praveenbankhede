@@ -1,12 +1,13 @@
 import { ApiConfig, ApiState } from "./../../index.d";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import apiClient from "../../utils";
+import apiClient, { session } from "../../utils";
 import {
   setFulFillState,
   setPendingState,
   setRejectedState,
   setResetState,
 } from "../../utils/setStateUtils";
+import { setData } from "../../utils/storageService";
 
 export interface UserCredentials {
   email: string;
@@ -106,6 +107,12 @@ const signupSlice = createSlice({
   reducers: {
     resetSignup: (state) => {
       setResetState(state);
+    },
+    userDetail: (state, action: any) => {
+      console.log("action.payLoad", action.payload);
+      state.data = action.payLoad;
+      setData("userDetail", action.payload);
+      session.addSession({ isLoggedIn: false });
     },
   },
   extraReducers(builder) {

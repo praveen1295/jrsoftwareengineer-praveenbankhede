@@ -2,7 +2,8 @@ import axios, { AxiosInstance } from "axios";
 import { getAuthHeader } from "./sessionManagement";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL || "http://localhost:8000",
+  baseURL:
+    process.env.REACT_APP_BACKEND_URL || "https://jsonplaceholder.typicode.com",
 });
 
 export const setHeader = (token: string): void => {

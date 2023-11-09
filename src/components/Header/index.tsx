@@ -8,8 +8,9 @@ import { headerUtils, session } from "../../utils";
 
 interface FuncProps {
   setOpen: any;
+  setOpenRegisterForm: any;
 }
-const Header: React.FC<FuncProps> = ({ setOpen }) => {
+const Header: React.FC<FuncProps> = ({ setOpen, setOpenRegisterForm }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onLogout = (): void => {
@@ -70,8 +71,19 @@ const Header: React.FC<FuncProps> = ({ setOpen }) => {
                   </Col>
                 </Row>
               ) : (
-                <div onClick={() => setOpen(true)}>
-                  <span className="navbarText">Login</span>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <span className="navbarText" onClick={() => setOpen(true)}>
+                    Login
+                  </span>
+                  <span
+                    className="navbarText"
+                    onClick={() => {
+                      setOpenRegisterForm(true);
+                      setOpen(true);
+                    }}
+                  >
+                    Register
+                  </span>
                 </div>
               )}
             </Col>

@@ -13,16 +13,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiFailureAction } from "../../commonApiLogic";
 import { AppDispatch, RootState } from "../../store";
 import { session } from "../../utils";
-import { signupApiCall, UserCredentials } from "./logic";
+import { signupAction, signupApiCall, UserCredentials } from "./logic";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ApiState } from "./../../index.d";
 import "./login.scss";
+import { getData } from "../../utils/storageService";
 
 interface FuncProps {
   open: boolean;
   setOpen: any;
+  openRegisterFrom: boolean;
+  setOpenRegisterForm: any;
 }
-const LoginPage: React.FC<FuncProps> = ({ open, setOpen }) => {
+const LoginPage: React.FC<FuncProps> = ({
+  open,
+  setOpen,
+  openRegisterFrom,
+  setOpenRegisterForm,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
@@ -30,7 +38,7 @@ const LoginPage: React.FC<FuncProps> = ({ open, setOpen }) => {
     (state: RootState) => state.userLoginData
   );
 
-  const [openRegisterFrom, setOpenRegisterForm] = useState(false);
+  // const [openRegisterFrom, setOpenRegisterForm] = useState(false);
   const [openVerifyModal, setOpenVerifyModal] = useState(false);
   const [formRef] = Form.useForm();
   const queryParam = new URLSearchParams(location.search);
@@ -43,28 +51,29 @@ const LoginPage: React.FC<FuncProps> = ({ open, setOpen }) => {
     }
     setOpenRegisterForm(false);
     setOpenVerifyModal(true);
-    dispatch(signupApiCall(values))
-      .unwrap()
-      .then(({ data }) => {
-        // eslint-disable-next-line no-console
-        console.log(data);
-      })
-      .catch((err: Error) => {
-        dispatch(apiFailureAction.apiFailure(err));
-      });
+    dispatch(signupAction.userDetail(values as any));
     formRef.resetFields();
   };
 
   const onLogin = (values: UserCredentials): void => {
     console.log(values);
-    session.addSession({
-      userName: values?.email,
-      isLoggedIn: true,
-      token: "erpvb12345",
-    });
-    navigate("/");
-    setOpen(false);
-    formRef.resetFields();
+    const userDetail = getData("userDetail");
+    console.log("userDetail", userDetail);
+    if (
+      userDetail?.email === values.email &&
+      userDetail?.password === values.password
+    ) {
+      session.addSession({
+        userName: values?.email,
+        isLoggedIn: true,
+        token: "erpvb12345",
+      });
+      navigate("/");
+      setOpen(false);
+      formRef.resetFields();
+    } else {
+      message.error("Email or Password incorrect !");
+    }
   };
 
   return (
@@ -246,35 +255,9 @@ const LoginPage: React.FC<FuncProps> = ({ open, setOpen }) => {
                 </Button>
               </Form.Item>
             </Form>
-            <p className="register-modal-footer">
-              Verification link will be sent after registration.
-            </p>
           </>
         )}
       </Modal>
-      {openVerifyModal && (
-        <Modal
-          title={
-            <div className="modal-title register">
-              <h2>Verify your email !</h2>
-            </div>
-          }
-          centered
-          open={open}
-          onCancel={() => {
-            setOpen(false);
-            setOpenRegisterForm(false);
-            setOpenVerifyModal(false);
-          }}
-          footer={null}
-          className="login-modal"
-        >
-          <p className="verify-modal-footer">
-            An verification link is sent to your email address.Please check your
-            email to complete the process.
-          </p>
-        </Modal>
-      )}
     </>
   );
 };
